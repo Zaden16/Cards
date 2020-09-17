@@ -36,6 +36,7 @@ img {
 
 .streamers {
   display: flex;
+  text-align: center;
   img {
     width: 2em;
     height: 2em;
@@ -48,12 +49,15 @@ img {
   font-weight: bold;
   top: 0;
   right: 1em;
+  z-index: 1000;
   background: rgba(0, 0, 0, 0.6);
   padding: 0.5em 0.5em 0.75em;
   clip-path: polygon(100% 0%, 100% 100%, 51% 79%, 0 100%, 0 0);
+  transition: 800ms;
 }
 
 .front {
+  transition: 800ms;
   .thumbnail {
     border-radius: var(--br);
   }
@@ -80,5 +84,109 @@ img {
 }
 
 .back {
-  display: none;
+  opacity: 0;
+  position: absolute;
+  right: 0;
+  top: 38%;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translateY(40%);
+
+  .streaming-info {
+    columns: 2;
+    column-rule: 1px solid var(--clr-light);
+    margin: 1em 0;
+  }
+
+  .btn {
+    cursor: pointer;
+    border: 0;
+    background: var(--clr-secondary);
+    color: var(--clr-light);
+    border-radius: 100vw;
+    padding: 0.5em 1em;
+  }
+
+  .game-stat {
+    font-size: 1.125rem;
+    text-align: center;
+
+    span {
+      display: block;
+      font-size: 0.8rem;
+    }
+  }
+}
+
+.background {
+  background: #8b0000;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  opacity: 0;
+  transform: scale(0.2, 0.9);
+
+  border-radius: var(--br);
+}
+
+.game:hover {
+  .rank {
+    transform: translateY(-130%);
+    transition: transform 600ms ease-in-out;
+  }
+  .front {
+    transform: translateY(-30%) scale(0.9);
+
+    .name {
+      animation: gameName 250ms forwards;
+    }
+
+    .stats {
+      opacity: 0;
+    }
+  }
+  .back {
+    opacity: 1;
+    transform: translateY(0);
+    transition: transform 450ms ease, opacity 150ms linear;
+
+    .streamers {
+      width: 100%;
+      justify-content: space-between;
+    }
+
+    .streamer {
+      font-size: 0.9rem;
+    }
+  }
+
+  .background {
+    opacity: 1;
+    transition: transform 250ms ease-in-out, opacity 100ms linear;
+    transform: scale(1.2, 1.6);
+  }
+}
+
+@keyframes gameName {
+  0% {
+    text-align: left;
+    opacity: 1;
+  }
+  20% {
+    text-align: left;
+    opacity: 0;
+  }
+  50% {
+    text-align: center;
+    opacity: 0;
+  }
+  100% {
+    text-align: center;
+    opacity: 1;
+  }
 }
